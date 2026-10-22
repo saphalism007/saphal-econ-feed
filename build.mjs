@@ -31,7 +31,7 @@ const FEEDS = [
   // Nepal and South Asia
   { section: "nepal", source: "Google News: Nepal economy", url: G("Nepal economy", "NP"), google: true },
   { section: "nepal", source: "Google News: Nepal Rastra Bank", url: G('"Nepal Rastra Bank"', "NP"), google: true },
-  { section: "nepal", source: "The Kathmandu Post", url: "https://kathmandupost.com/rss", path: "/money/" },
+  { section: "nepal", source: "The Kathmandu Post", url: "https://kathmandupost.com/rss", path: "/money/", filter: "econ" },
   { section: "nepal", source: "The Himalayan Times", url: "https://thehimalayantimes.com/rssFeed/15", filter: "econ" },
   { section: "nepal", source: "Onlinekhabar English", url: "https://english.onlinekhabar.com/feed", filter: "econ" },
   { section: "nepal", source: "Nepali Times", url: "https://www.nepalitimes.com/feed", filter: "econ" },
@@ -64,7 +64,7 @@ const ECON = /econom|gdp|inflation|price|bank|monetary|fiscal|budget|tax|revenue
 const STUDY = /scholar|fellowship|phd|doctoral|doctorate|master'?s|graduate|postgraduate|university|funded|stipend|tuition|summer school|programme|program|admission|chevening|fulbright|daad|commonwealth|erasmus|award/i;
 const NOT_STUDY = /teacher|high school|football|cricket|athlete|sports|public health|medical|medicine|nursing|clinical|pharma|informatics|scientist program|engineering|art residenc|artist|film|music|dance|journalis|hackathon|competition|contest|award ceremony|wins? |won |alumni|obituary/i;
 // A study item must also be open to economists: economics, policy, development, social science, or any field.
-const FOR_ECON = /econom|policy|public administration|development|social science|finance|business|international students|developing countr|all fields|any field|all disciplines|fully funded|full scholarship|nepal|south asia|chevening|fulbright|daad|commonwealth|erasmus|australia awards|gates cambridge|rhodes|knight-hennessy|mext|swedish institute|phd|doctoral/i;
+const FOR_ECON = /econom|public policy|policy studies|public administration|governance|international development|development studies|social science|finance|welfare|statistic|data science|international students|developing countr|all fields|any field|all disciplines|all subjects|nepal|south asia|chevening|fulbright|daad|commonwealth|erasmus|australia awards|gates cambridge|rhodes|knight-hennessy|clarendon|mext|swedish institute/i;
 // Reputable outlets for Google News results; everything else from Google News is dropped.
 const REPUTABLE = /reuters|associated press|\bap news\b|bloomberg|financial times|wall street journal|new york times|washington post|the economist|bbc|guardian|cnbc|al jazeera|nikkei|south china morning post|the hindu|indian express|mint|livemint|business standard|economic times|hindustan times|dawn|daily star|the diplomat|devex|imf|world bank|asian development bank|adb|un news|ft\.com|forbes|fortune|axios|politico|npr|marketplace|kathmandu post|republica|himalayan times|rising nepal|nepalnews|onlinekhabar|nepal live today|annapurna express|setopati|ratopati|sharesansar|new business age|nepal economic forum|karobar|kantipur|nagarik|xinhua|nepal monitor|times higher education|university world news|inside higher ed|scholars4dev|opportunity desk|study international|qs|the pie news|icef/i;
 // Outlets that announce study calls; accepted for the scholarships section only.
@@ -74,7 +74,7 @@ const NOISE = /exchange rates? for|foreign exchange rate|forex rates? today|gold
 const TAGS = [
   ["Nepal", /nepal|kathmandu|nrb|nepse|rupee/i],
   ["South Asia", /south asia|india|bangladesh|pakistan|sri lanka|bhutan|maldives/i],
-  ["Development", /develop|poverty|aid|inequality|africa|low[- ]income|remittance|microfinance|rct|randomi[sz]ed/i],
+  ["Development", /development econom|economic development|international development|developing countr|poverty|foreign aid|inequality|low[- ]income|remittance|microfinance|randomi[sz]ed/i],
   ["Monetary", /monetary|central bank|interest rate|inflation|federal reserve|\bfed\b|ecb|rate cut|rate hike/i],
   ["Trade", /trade|tariff|export|import|wto/i],
   ["Labour", /labou?r|wage|employ|jobs|worker/i],
