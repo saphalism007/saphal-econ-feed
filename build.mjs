@@ -184,10 +184,21 @@ await Promise.all(FEEDS.map(async (f) => {
   }
 }));
 
-// Keep earlier items that have dropped out of their feeds but are still recent.
+// Keep earlier items that have dropped out of their feeds but are still recent,
+// re-checked against today's filters and re-tagged, so a tightened rule applies at once.
+const econSources = new Set(FEEDS.filter((f) => f.filter === "econ").map((f) => f.source));
+const stillGood = (x) => {
+  const text = x.title + " " + (x.summary || "");
+  if (NOISE.test(x.title)) return false;
+  if (x.section === "scholarships") return STUDY.test(text) && FOR_ECON.test(text) && !NOT_STUDY.test(x.title);
+  if (econSources.has(x.source)) return ECON.test(text);
+  return true;
+};
 for (const old of previous.items || []) {
   const age = now - Date.parse(old.date);
-  if (age <= MAX_AGE_DAYS[old.section] * 86400000 && !items.some((x) => x.link === old.link)) items.push(old);
+  if (age <= MAX_AGE_DAYS[old.section] * 86400000 && !items.some((x) => x.link === old.link) && stillGood(old)) {
+    items.push({ ...old, tags: TAGS.filter(([, re]) => re.test(old.title + " " + (old.summary || ""))).map(([t]) => t) });
+  }
 }
 
 // Remove repeats (the same story from two feeds), newest first, cap each section.
